@@ -1,0 +1,428 @@
+<!--
+  ELECTRA — Monthly report | Belgium portfolio
+  Debt investors · €75M Project Finance facility
+  V7 — English · adapted to the Electra design system
+
+  ┌──────────────────────────────────────────────────────────────┐
+  │  ALL FIGURES LIVE IN THE `DATA` OBJECT BELOW. To produce next  │
+  │  month's report, edit that object only — the page re-renders.  │
+  └──────────────────────────────────────────────────────────────┘
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electra — Belgium report</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Aeonik & Satoshi are proprietary; DM Sans + Nunito are the documented fallbacks -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    /* Slate */
+    --slate-10:#E7F5F6; --slate-20:#BBD4D6; --slate-30:#99A5A4; --slate-40:#7B9597;
+    --slate-50:#5D6968; --slate-60:#3C5459; --slate-70:#0B2936;
+    /* Cyan */
+    --cyan-10:#E7FEFC; --cyan-20:#DBFFF9; --cyan-30:#A8FBE8; --cyan-40:#87F9D3;
+    --cyan-50:#67F7C1; --cyan-60:#43F5BA; --cyan-70:#08222E;
+    /* Neutral */
+    --neutral-10:#F5F5F5; --neutral-20:#E6E9E8; --neutral-30:#CCD0CF;
+    --neutral-50:#9CA5A4; --neutral-60:#6B7280; --neutral-70:#1F2937;
+    /* Functional */
+    --green-10:#BCFFE9; --orange-10:#FF8B66; --white:#FFFFFF;
+
+    --font-display:'Aeonik-Bold','Aeonik-Medium','Circular','DM Sans','Nunito',sans-serif;
+    --font-body:'Satoshi-Regular','DM Sans','Inter',sans-serif;
+
+    --r-md:8px; --r-lg:12px; --r-xl:16px; --r-2xl:32px; --r-pill:9999px;
+  }
+  /* ---------- DISCLAIMER BANNER ---------- */
+  .disclaimer-banner{
+    background:#fde8e8;
+    border-bottom:1px solid #f5c6c6;
+    overflow:hidden;
+    white-space:nowrap;
+    padding:8px 0;
+    font-family:var(--font-body);
+    font-size:12.5px;
+    color:#9b3333;
+    letter-spacing:.01em;
+  }
+  .disclaimer-banner.bottom{
+    border-bottom:none;
+    border-top:1px solid #f5c6c6;
+  }
+  .disclaimer-track{
+    display:inline-block;
+    animation:scroll-banner 70s linear infinite;
+  }
+  .disclaimer-track span{
+    padding:0 80px;
+  }
+  @keyframes scroll-banner{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{
+    -webkit-text-size-adjust:100%;
+    scroll-padding-top:calc(clamp(16px,4vw,40px) + 37px);
+    overflow-y:scroll;
+  }
+  body{
+    background:var(--neutral-10);
+    color:var(--slate-70);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    line-height:1.5;font-size:15px;
+  }
+  .sheet{max-width:1200px;margin:0 auto;padding:clamp(16px,4vw,40px) clamp(16px,4vw,32px) 80px}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* ---------- COVER (dark slate panel) ---------- */
+  .cover{
+    background:var(--slate-70);color:var(--neutral-10);
+    border-radius:var(--r-2xl);padding:clamp(28px,4vw,44px);
+    display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;
+  }
+  header.cover{scroll-snap-align:start;scroll-snap-stop:normal}
+  .brand{display:flex;align-items:center;gap:12px}
+  .spark{
+    width:36px;height:36px;border-radius:10px;background:var(--cyan-60);
+    display:grid;place-items:center;color:var(--slate-70);flex:none;
+  }
+  .spark svg{width:20px;height:20px}
+  .brand .name{font-family:var(--font-display);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:14px;color:var(--white)}
+  .cover h1{
+    font-family:var(--font-display);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.02;
+    letter-spacing:-.02em;margin-top:20px;color:var(--white);
+  }
+  .cover h1 em{font-style:normal;color:var(--cyan-60)}
+  .cover .sub{color:var(--slate-20);font-size:14px;margin-top:10px}
+  .cover .tag{
+    display:inline-block;font-weight:500;font-size:11px;letter-spacing:.04em;
+    padding:5px 13px;border-radius:var(--r-pill);
+    background:rgba(67,245,186,.12);color:var(--cyan-60);margin-top:16px;
+  }
+  .cover .meta{font-size:12.5px;text-align:right;color:var(--slate-30);line-height:1.85}
+  .cover .meta b{color:var(--cyan-60);font-weight:700;font-family:var(--font-display);font-size:17px;letter-spacing:-.01em}
+
+  /* ---------- SECTION ---------- */
+  section{padding:36px 0 36px;border-bottom:1px solid var(--neutral-20);scroll-snap-align:center;scroll-snap-stop:normal}
+  section:last-of-type{border-bottom:none}
+  .shead{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+  .shead .idx{
+    font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--slate-70);
+    background:var(--cyan-60);border-radius:var(--r-pill);padding:3px 11px;
+  }
+  .shead h2{font-family:var(--font-display);font-weight:700;font-size:24px;letter-spacing:-.02em;color:var(--slate-70)}
+  .shead .note{margin-left:auto;font-size:11px;color:var(--neutral-60);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+
+  /* ---------- KPI / stat cards ---------- */
+  .kpis{display:grid;gap:10px}
+  .kpis.c6{grid-template-columns:repeat(6,1fr)}
+  .kpis.c5{grid-template-columns:repeat(5,1fr)}
+  .kpis.c4{grid-template-columns:repeat(4,1fr)}
+  .kpi{background:var(--white);border:1px solid var(--neutral-20);border-radius:var(--r-lg);padding:15px 16px}
+  .kpi .l{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--neutral-60);font-weight:500;line-height:1.35;min-height:28px}
+  .kpi .v{font-family:var(--font-display);font-weight:500;font-size:26px;letter-spacing:-.02em;margin-top:8px;color:var(--slate-70)}
+  .kpi .s{font-size:12px;color:var(--slate-50);margin-top:4px}
+  .kpi .s.up{color:var(--slate-60)}
+  .kpi .s.up::before{content:"";display:inline-block;width:7px;height:7px;background:var(--cyan-60);border-radius:50%;margin-right:6px;vertical-align:middle}
+
+  /* ---------- 2-COL SPLIT ---------- */
+  .split{display:grid;grid-template-columns:1.32fr 1fr;gap:24px;margin-top:20px;align-items:start}
+  .split.wide{grid-template-columns:1.55fr 1fr}
+  .panel{background:var(--white);border:1px solid var(--neutral-20);border-radius:var(--r-xl);padding:20px}
+
+  /* ---------- TABLE ---------- */
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  caption{caption-side:top;text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--neutral-60);font-weight:500;padding-bottom:11px}
+  th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--neutral-20)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-weight:500;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--neutral-60);border-bottom:1.5px solid var(--neutral-30)}
+  tbody td{font-variant-numeric:tabular-nums;color:var(--slate-60)}
+  tbody td:first-child{font-weight:500;color:var(--slate-70)}
+  tbody tr:last-child td{border-bottom:none}
+  tr.total td{border-top:1.5px solid var(--slate-70);border-bottom:none;font-weight:700;color:var(--slate-70);background:var(--cyan-10)}
+  .var{display:inline-block;font-size:11.5px;font-weight:500;padding:1px 9px;border-radius:var(--r-pill);font-variant-numeric:tabular-nums}
+  .var.pos{background:var(--green-10);color:var(--slate-70)}
+  .var.neg{background:var(--orange-10);color:var(--slate-70)}
+  /* Highlight target columns — border only, no background */
+  th.col-target, td.col-target{color:var(--slate-70)!important;font-weight:600}
+  /* Wide table: slightly smaller text so cols fit; equal-width columns except first */
+  .split.wide .panel table{font-size:12px;table-layout:fixed}
+  .split.wide .panel table th:first-child,
+  .split.wide .panel table td:first-child{width:14%}
+  .split.wide .panel table th:not(:first-child),
+  .split.wide .panel table td:not(:first-child){width:calc(86% / 7)}
+  .split.wide .panel table th,
+  .split.wide .panel table td{padding:8px 5px}
+  .pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 10px;border-radius:var(--r-pill)}
+  .pill.ok{background:var(--green-10);color:var(--slate-70)}
+  .pill.watch{background:var(--orange-10);color:var(--slate-70)}
+
+  /* ---------- COMMENTARY ---------- */
+  .comment h3{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--neutral-60);font-weight:500;margin-bottom:13px}
+  ul.b{list-style:none}
+  ul.b li{position:relative;padding-left:20px;margin-bottom:12px;font-size:13.5px;line-height:1.45;color:var(--slate-60)}
+  ul.b li::before{content:"";position:absolute;left:0;top:6px;width:8px;height:8px;background:var(--cyan-60);border-radius:3px}
+  ul.b li b{font-weight:700;color:var(--slate-70)}
+  ul.b li .f{font-weight:600;color:var(--slate-70);font-variant-numeric:tabular-nums}
+
+  /* ---------- NEXT STEPS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px}
+  .step{background:var(--white);border:1px solid var(--neutral-20);border-radius:var(--r-lg);padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+  .step .q{font-size:11px;font-weight:600;color:var(--slate-70);background:var(--cyan-60);border-radius:var(--r-pill);padding:3px 11px;white-space:nowrap;flex:none;margin-top:1px}
+  .step p{font-size:13.5px;line-height:1.4;color:var(--slate-60)}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding-top:28px;font-size:11.5px;color:var(--neutral-60);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+  /* ---------- MOTION ---------- */
+  .reveal{opacity:0;transform:translateY(12px);animation:rise .6s cubic-bezier(.2,.7,.3,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  @media(max-width:860px){
+    .split{grid-template-columns:1fr}
+    .kpis.c6,.kpis.c5,.kpis.c4{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:1fr}
+    .cover .meta{text-align:left}
+    table{font-size:12px} th,td{padding:8px 7px}
+  }
+</style>
+
+<div class="disclaimer-banner" id="banner-top">
+  <div class="disclaimer-track">
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+  </div>
+</div>
+<div class="sheet" id="app"></div>
+<div class="disclaimer-banner bottom" id="banner-bottom">
+  <div class="disclaimer-track">
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+    <span>Illustrative template using randomized figures, for demonstration purposes only</span>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   REPORT DATA — edit this object only, each month.
+   All values are placeholders, meant to be replaced.
+   ===================================================================== */
+const DATA = {
+  meta:{
+    period:"September 2026",
+    reportDate:"10 October 2026",
+    facility:"Project Finance Facility — €75M Senior Debt",
+    confid:"Confidential · Debt investors"
+  },
+
+  /* 01 — OVERVIEW */
+  exec:{
+    kpis:[
+      {l:"Stations live",          v:"155",       s:"+3 this month", t:"up"},
+      {l:"Charge points",          v:"941",       s:"+18 this month", t:"up"},
+      {l:"Energy delivered (mo.)", v:"4,128 MWh", s:"+4.5% MoM",     t:"up"},
+      {l:"EBITDA (month)",         v:"€0.09M",    s:"12% margin"},
+      {l:"DSCR",                   v:"1.35x",     s:"covenant ≥ 1.10x", t:"up"},
+      {l:"Drawn / facility",       v:"85%",       s:"€63.5 / 75M"}
+    ],
+    bullets:[
+      "<b>DSCR at <span class='f'>1.35x</span></b>, above the 1.10x covenant; Q3 semi-annual DSCR test passed — LLCR strengthened to <span class='f'>1.52x</span>.",
+      "<b>155 stations</b> live, <span class='f'>+3</span> this month; Mons E19 BESS declared commercial operation; Wallonia deficit vs target narrows to <span class='f'>−4 points</span>.",
+      "Energy delivered at <span class='f'>4,128 MWh</span> (+4.5% MoM), utilisation at <span class='f'>19.3%</span> — a new monthly high, with Flanders leading at <span class='f'>21.3%</span>.",
+      "Monthly EBITDA of <span class='f'>€0.09M</span> (12% margin); YTD EBITDA at <span class='f'>€0.57M</span>, ~9% ahead of the base case.",
+      "<b>Federal subsidy awarded at <span class='f'>€2.0M</span></b> (8 ultra-fast sites confirmed); disbursement process initiated, expected Q1 2027."
+    ]
+  },
+
+  /* 02 — OPERATIONS */
+  ops:{
+    kpis:[
+      {l:"Fleet uptime",     v:"98.8%",    s:"SLA ≥ 97%",   t:"up"},
+      {l:"Utilisation rate", v:"19.3%",    s:"+0.2 pt MoM",  t:"up"},
+      {l:"Charge sessions",  v:"174,100",  s:"+5% MoM",      t:"up"},
+      {l:"Energy / session", v:"23.7 kWh", s:"stable"},
+      {l:"Energy delivered", v:"4,128 MWh",s:"+4.5% MoM",   t:"up"},
+      {l:"vs Budget",        v:"104%",     s:"+4% vs budget", t:"up"}
+    ],
+    table:{
+      caption:"Activity by cluster — September 2026",
+      head:["Cluster","Stations","Points","Points vs target","Energy (MWh)","Energy actual vs budget","Utilisation","Uptime"],
+      rows:[
+        ["Brussels","51","308","<span class='var pos'>+14</span>","1,267","<span class='var pos'>+3.5%</span>","18.0%","98.6%"],
+        ["Flanders","68","413","<span class='var pos'>+23</span>","1,882","<span class='var pos'>+5.5%</span>","21.3%","98.9%"],
+        ["Wallonia","36","220","<span class='var neg'>−4</span>","979","<span class='var pos'>+1.5%</span>","17.5%","99.1%"]
+      ],
+      total:["Belgium total","155","941","<span class='var pos'>+33</span>","4,128","<span class='var pos'>+3.5%</span>","19.3%","98.9%"],
+      colHighlight:[3,5]
+    },
+    bullets:[
+      "Utilisation reached a new record of <span class='f'>19.3%</span> (+0.2 pt MoM); <b>Flanders</b> led at <span class='f'>21.3%</span>, <b>Wallonia</b> accelerated to <span class='f'>17.5%</span> with the Liège hub fully ramped at 22% utilisation.",
+      "Network uptime improved to <span class='f'>98.8%</span> — the active-cooling protocol formalised in August continues to prevent thermal-derating events across all HPC sites.",
+      "<b>Wallonia</b> deficit vs target narrowed to <span class='f'>−4 points</span> (from −6 in August); all three clusters in positive territory vs budget for the first time this year.",
+      "Energy vs budget reached <span class='f'>104%</span> (+1 pp vs August), reflecting sustained network maturity and the Liège hub's full operating contribution."
+    ]
+  },
+
+  /* 03 — FINANCIAL PERFORMANCE */
+  finance:{
+    kpis:[
+      {l:"Revenue (month)", v:"€0.76M", s:"+4.1% vs budget", t:"up"},
+      {l:"Gross margin",    v:"57%",    s:"−1 pt vs budget"},
+      {l:"EBITDA (YTD)",    v:"€0.57M", s:"+9% vs base case", t:"up"},
+      {l:"Energy cost",     v:"43%",    s:"of revenue"}
+    ],
+    table:{
+      caption:"Income statement — actual vs budget (€M)",
+      head:["Item","Month actual","Month budget","Actual vs Budget","YTD actual"],
+      rows:[
+        ["Revenue","0.76","0.73","<span class='var pos'>+4.1%</span>","5.68"],
+        ["Energy cost","(0.33)","(0.31)","<span class='var neg'>−6.5%</span>","(2.40)"],
+        ["Gross margin","0.43","0.42","<span class='var pos'>+2.4%</span>","3.28"],
+        ["Opex (O&M, SG&A)","(0.34)","(0.34)","<span class='var pos'>−0.0%</span>","(2.71)"]
+      ],
+      total:["EBITDA","0.09","0.08","<span class='var pos'>+12.5%</span>","0.57"]
+    },
+    bullets:[
+      "Revenue at <span class='f'>€0.76M</span> (+4.1% MoM, <b>+4.1% vs budget</b>), reflecting full-month contribution from August commissionings and sustained post-summer demand.",
+      "Gross margin eased to <span class='f'>57%</span> (−1 pt vs budget) as energy spot prices normalised toward the autumn baseline; energy cost held steady at <span class='f'>43%</span> of revenue.",
+      "Monthly EBITDA at <span class='f'>€0.09M</span>, <b>+12.5% vs budget</b>, on higher revenue and fully stable opex at €0.34M.",
+      "YTD EBITDA at <span class='f'>€0.57M</span>, ~9% ahead of the base case; YTD revenue of <span class='f'>€5.68M</span> tracking above plan."
+    ]
+  },
+
+  /* 04 — DEBT & COVENANTS */
+  debt:{
+    kpis:[
+      {l:"Cumulative drawn", v:"€63.5M", s:"of €75M"},
+      {l:"DSCR",             v:"1.35x",  s:"≥ 1.10x", t:"up"},
+      {l:"LLCR",             v:"1.52x",  s:"≥ 1.20x", t:"up"},
+      {l:"All-in cost",      v:"5.28%",  s:"E3M + 275 bps"},
+      {l:"Gearing",          v:"70%",    s:"75% cap"}
+    ],
+    table:{
+      caption:"Covenant monitoring — September 2026",
+      head:["Metric","Value","Covenant","Status"],
+      rows:[
+        ["DSCR (backward 12m)","1.35x","≥ 1.10x","<span class='pill ok'>Compliant</span>"],
+        ["LLCR","1.52x","≥ 1.20x","<span class='pill ok'>Compliant</span>"],
+        ["Gearing (Debt/Capital)","70%","≤ 75%","<span class='pill ok'>Compliant</span>"],
+        ["DSRA (reserve account)","€2.1M","2 debt svc periods","<span class='pill ok'>Funded</span>"],
+        ["Drawn / commitment","85%","—","<span class='pill ok'>On track</span>"]
+      ]
+    },
+    bullets:[
+      "<b>All covenants compliant</b>: Q3 semi-annual DSCR test passed at <span class='f'>1.35x</span> (floor 1.10x); LLCR strengthened to <span class='f'>1.52x</span>, gearing at <span class='f'>70%</span> (≤ 75% cap).",
+      "DSRA funded to <span class='f'>2 debt-service periods</span> (€2.1M), no drawdown.",
+      "<span class='f'>€1.5M</span> drawn in September (final Q3 Walloon tranche); cumulative drawn at <span class='f'>€63.5M</span>, leaving <span class='f'>€11.5M</span> of headroom for the Q4 build-out.",
+      "Next service date: <b>31 December 2026</b>, <span class='f'>€1.4M</span> (principal + interest); all-in cost stable at <span class='f'>5.28%</span> (EURIBOR 3M + 275 bps), 80% hedged."
+    ]
+  },
+
+  /* 05 — NEXT STEPS */
+  nextSteps:[
+    {q:"Q3 2026", p:"Final Q3 drawdown of EUR 1.5M completed — Walloon pipeline stations fully funded."},
+    {q:"Q3 2026", p:"Q3 semi-annual DSCR test passed at 1.35x; confirmed compliant by facility agent."},
+    {q:"Q3 2026", p:"Federal subsidy awarded at €2.0M (8 ultra-fast sites); disbursement expected Q1 2027."},
+    {q:"Q4 2026", p:"Series B — final due diligence; close targeted before year-end."},
+    {q:"Q4 2026", p:"Sign the Belgian retail framework contract (October–November)."},
+    {q:"Q4 2026", p:"Q4 drawdown planning — EUR 11.5M remaining headroom for final pipeline stations."},
+    {q:"Q4 2026", p:"Annual financial-model review with the facility agent."},
+    {q:"Q4 2026", p:"Reach the 200 live-station target (155 today, 45 remaining)."},
+    {q:"Q1 2027", p:"Complete Wallonia cluster buildout (target 50 stations, currently 36)."}
+  ]
+};
+
+/* =====================================================================
+   RENDERING — no need to touch this to change the data.
+   ===================================================================== */
+function kpiBlock(items){
+  const n=items.length, cls=n>=6?'c6':n===5?'c5':'c4';
+  return `<div class="kpis ${cls}">`+items.map(k=>`
+    <div class="kpi">
+      <div class="l">${k.l}</div>
+      <div class="v">${k.v}</div>
+      ${k.s?`<div class="s ${k.t==='up'?'up':''}">${k.s}</div>`:''}
+    </div>`).join('')+`</div>`;
+}
+function tableBlock(t){
+  // colHighlight: array of col indices (0-based) to apply .col-target class
+  const hi = t.colHighlight || [];
+  const head=`<thead><tr>${t.head.map((h,i)=>`<th${hi.includes(i)?' class="col-target"':''}>${h}</th>`).join('')}</tr></thead>`;
+  const body=t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${hi.includes(i)?' class="col-target"':''}>${c}</td>`).join('')}</tr>`).join('');
+  const tot=t.total?`<tr class="total">${t.total.map((c,i)=>`<td${hi.includes(i)?' class="col-target"':''}>${c}</td>`).join('')}</tr>`:'';
+  return `<div class="panel"><table>${t.caption?`<caption>${t.caption}</caption>`:''}${head}<tbody>${body}${tot}</tbody></table></div>`;
+}
+function bullets(title,arr){
+  return `<div class="comment"><h3>${title}</h3><ul class="b">${arr.map(b=>`<li>${b}</li>`).join('')}</ul></div>`;
+}
+function section(idx,title,note,inner){
+  return `<section class="reveal"><div class="shead"><span class="idx">${idx}</span><h2>${title}</h2>${note?`<span class="note">${note}</span>`:''}</div>${inner}</section>`;
+}
+
+const app=document.getElementById('app');
+const m=DATA.meta;
+
+app.innerHTML=`
+  <header class="cover reveal">
+    <div>
+      <div class="brand">
+        <span class="spark"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>
+        <span class="name">Electra</span>
+      </div>
+      <h1>Monthly report<br><em>Belgium portfolio</em></h1>
+      <div class="sub">${m.facility}</div>
+
+    </div>
+    <div class="meta">
+      Period<br><b>${m.period}</b><br><br>
+      Issued<br><b>${m.reportDate}</b>
+    </div>
+  </header>
+
+  ${section('01','Overview','',
+    kpiBlock(DATA.exec.kpis) +
+    `<div style="margin-top:20px">${bullets('Key takeaways this month',DATA.exec.bullets)}</div>`
+  )}
+
+  ${section('02','Operational performance','',
+    kpiBlock(DATA.ops.kpis) +
+    `<div class="split wide">${tableBlock(DATA.ops.table)}${bullets('Commentary',DATA.ops.bullets)}</div>`
+  )}
+
+  ${section('03','Financial performance','',
+    kpiBlock(DATA.finance.kpis) +
+    `<div class="split">${tableBlock(DATA.finance.table)}${bullets('Commentary',DATA.finance.bullets)}</div>`
+  )}
+
+  ${section('04','Debt facility & covenants','',
+    kpiBlock(DATA.debt.kpis) +
+    `<div class="split">${tableBlock(DATA.debt.table)}${bullets('Commentary',DATA.debt.bullets)}</div>`
+  )}
+
+  ${section('05','Next steps','Q3 – Q4 2026 · Q1 2027',
+    `<div class="steps">${DATA.nextSteps.map(s=>`<div class="step"><span class="q">${s.q}</span><p>${s.p}</p></div>`).join('')}</div>`
+  )}
+
+  <footer>
+    <span>Electra — Strategic Funding · Belgium portfolio</span>
+    <span>${m.confid} · ${m.period}</span>
+  </footer>
+`;
+
+document.querySelectorAll('.reveal').forEach((n,i)=>n.style.animationDelay=(i*70)+'ms');
+/* Ensure page starts at very top so the banner is visible */
+window.scrollTo(0,0);
+</script>
